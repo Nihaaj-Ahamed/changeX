@@ -1,0 +1,277 @@
+// .newPostPage {
+//   height: 100%;
+//   display: flex;
+
+//   .formContainer {
+//     flex: 3;
+//     overflow: scroll;
+
+//     .wrapper {
+//       margin: 30px 50px 100px 0px;
+
+//       form {
+//         display: flex;
+//         justify-content: space-between;
+//         flex-wrap: wrap;
+//         gap: 20px;
+
+//         .item {
+//           width: 30%;
+//           display: flex;
+//           flex-direction: column;
+//           gap: 5px;
+
+//           label {
+//           }
+
+//           input {
+//             padding: 20px;
+//             border-radius: 5px;
+//             border: 1px solid gray;
+//           }
+
+//           select {
+//             padding: 19px;
+//           }
+
+//           &.description {
+//             width: 100%;
+//             height: 320px;
+
+//             .quill > .ql-container > .ql-editor{
+//               height: 200px;
+//               font-size: 16px;
+//             }
+//           }
+//         }
+//         .sendButton {
+//           width: 30%;
+//           border-radius: 5px;
+//           border: none;
+//           background-color: teal;
+//           color: white;
+//           font-weight: bold;
+//           cursor: pointer;
+//         }
+//       }
+//     }
+//   }
+
+//   .sideContainer {
+//     flex: 2;
+//     background-color: #fcf5f3;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 20px;
+//     align-items: center;
+//     justify-content: center;
+
+//     img {
+//       width: 50%;
+//       height: 180px;
+//       object-fit: cover;
+//       border-radius: 5px;
+//     }
+//   }
+// }
+@use "../../responsive";
+
+.newPostPage {
+  height: 100%;
+  display: flex;
+  gap: 24px;
+  overflow: hidden;
+
+  .formContainer {
+    flex: 3;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 8px;
+
+    .wrapper {
+      margin: 10px 24px 80px 0px;
+
+      @include responsive.md {
+        margin: 10px 0px 40px 0px;
+      }
+
+      h1 {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 24px;
+      }
+
+      form {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .item {
+          width: 31%;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          @include responsive.md {
+            width: 48%;
+          }
+
+          @include responsive.sm {
+            width: 100%;
+          }
+
+          label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.3px;
+          }
+
+          input,
+          select {
+            padding: 14px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: all var(--transition-fast);
+
+            &::placeholder {
+              color: var(--text-muted);
+            }
+
+            &:focus {
+              border-color: var(--accent-primary);
+              background: rgba(255, 255, 255, 0.08);
+              box-shadow: 0 0 10px var(--accent-glow);
+            }
+
+            option {
+              background: var(--bg-surface);
+              color: var(--text-primary);
+            }
+          }
+
+          select {
+            cursor: pointer;
+            appearance: none;
+          }
+
+          // Quill Rich Text Editor Container
+          &.description {
+            width: 100%;
+            height: auto;
+            min-height: 280px;
+            margin-bottom: 20px;
+
+            .quill {
+              background: rgba(255, 255, 255, 0.04);
+              border-radius: var(--radius-md);
+              border: 1px solid var(--glass-border);
+              overflow: hidden;
+
+              .ql-toolbar {
+                border: none;
+                border-bottom: 1px solid var(--glass-border);
+                background: rgba(255, 255, 255, 0.02);
+
+                .ql-stroke {
+                  stroke: var(--text-secondary);
+                }
+
+                .ql-fill {
+                  fill: var(--text-secondary);
+                }
+
+                .ql-picker {
+                  color: var(--text-secondary);
+                }
+              }
+
+              .ql-container {
+                border: none;
+
+                .ql-editor {
+                  height: 200px;
+                  font-size: 15px;
+                  color: var(--text-primary);
+                  font-family: inherit;
+
+                  &.ql-blank::before {
+                    color: var(--text-muted);
+                    font-style: normal;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .sendButton {
+          width: 31%;
+          height: 50px;
+          border-radius: var(--radius-md);
+          border: none;
+          background-color: var(--accent-primary);
+          color: #000000;
+          font-weight: 700;
+          font-size: 15px;
+          cursor: pointer;
+          align-self: flex-end;
+          transition: all var(--transition-fast);
+          box-shadow: var(--shadow-glow);
+
+          @include responsive.md {
+            width: 100%;
+          }
+
+          &:hover {
+            background-color: var(--accent-mint);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--accent-glow);
+          }
+        }
+      }
+    }
+  }
+
+  // Side Image Upload Preview Section
+  .sideContainer {
+    flex: 2;
+    height: 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+
+    @include responsive.md {
+      display: none;
+    }
+
+    img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      transition: all var(--transition-fast);
+
+      &:hover {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+      }
+    }
+  }
+}

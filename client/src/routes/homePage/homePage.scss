@@ -1,0 +1,254 @@
+
+// @use "../../responsive";
+// .homePage {
+//   display: flex;
+//   height: 100%;
+
+//   .textContainer {
+//     flex: 3;
+
+//     .wrapper {
+//       padding-right: 100px;
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: center;
+//       gap: 50px;
+//       height: 100%;
+
+//       @include responsive.lg{
+//         padding-right: 50px;
+//       }
+
+//       @include responsive.md{
+//         padding: 0;
+//       }
+
+//       @include responsive.sm{
+//         justify-content: flex-start;
+//       }
+
+//       .title {
+//         font-size: 64px;
+
+//         @include responsive.lg {
+//           font-size: 48px;
+//         }
+//       }
+
+//       .boxes {
+//         display: flex;
+//         justify-content: space-between;
+
+//         @include responsive.sm {
+//           display: none;
+//         }
+        
+//         h1 {
+//           font-size: 36px;
+          
+//           @include responsive.lg {
+//             font-size: 32px;
+//           }
+//         }
+
+//         h2 {
+//           font-size: 20px;
+//           font-weight: 300;
+//         }
+//       }
+//     }
+//   }
+
+//   .imgContainer {
+//     flex: 2;
+//     background-color: #fcf5f3;
+//     position: relative;
+//     display: flex;
+//     align-items: center;
+
+//     @include responsive.sm {
+//       display: none;
+//     }
+
+//     img {
+//       width: 115%;
+//       position: absolute;
+//       right: 0;
+
+//       @include responsive.lg {
+//         width: 105%;
+//       }
+//     }
+//   }
+// }
+@use "../../responsive";
+
+// Continuous 360-degree rotation keyframe
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.homePage {
+  display: flex;
+  height: 100%;
+  min-height: calc(100vh - 80px);
+  position: relative;
+  overflow: hidden;
+
+  .textContainer {
+    flex: 3;
+    z-index: 2;
+
+    .wrapper {
+      padding-right: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 36px;
+      height: 100%;
+
+      @include responsive.lg {
+        padding-right: 40px;
+      }
+
+      @include responsive.md {
+        padding: 40px 0;
+      }
+
+      @include responsive.sm {
+        justify-content: flex-start;
+        gap: 28px;
+      }
+
+      .title {
+        font-size: 56px;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -1px;
+        color: var(--text-primary);
+
+        span, b {
+          background: linear-gradient(135deg, #ffffff 0%, var(--accent-mint) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        @include responsive.lg {
+          font-size: 44px;
+        }
+
+        @include responsive.sm {
+          font-size: 36px;
+        }
+      }
+
+      p {
+        color: var(--text-secondary);
+        font-size: 16px;
+        line-height: 1.6;
+        max-width: 540px;
+      }
+
+      // Stats / Counter Grid Boxes
+      .boxes {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+
+        @include responsive.sm {
+          display: none;
+        }
+
+        > div, .box {
+          flex: 1;
+          background: var(--glass-bg);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid var(--glass-border);
+          padding: 16px;
+          border-radius: var(--radius-md);
+          box-shadow: var(--shadow-sm);
+          transition: all var(--transition-fast);
+
+          &:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+          }
+        }
+
+        h1 {
+          font-size: 32px;
+          font-weight: 700;
+          color: var(--accent-primary);
+          margin-bottom: 4px;
+
+          @include responsive.lg {
+            font-size: 26px;
+          }
+        }
+
+        h2 {
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+
+  // Hero Image Container Section with Rotation
+  .imgContainer {
+    flex: 2;
+    background: transparent;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include responsive.sm {
+      display: none;
+    }
+
+    // Emerald Glow effect behind rotating PNG
+    &::before {
+      content: '';
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: var(--accent-primary);
+      filter: blur(140px);
+      opacity: 0.25;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    img {
+      width: 110%;
+      position: absolute;
+      right: -5%;
+      z-index: 2;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+      
+      // Continuous Rotation Property
+      animation: spin 20s linear infinite;
+
+      // Hover-la rotation pause aagum
+      &:hover {
+        animation-play-state: paused;
+      }
+
+      @include responsive.lg {
+        width: 100%;
+        right: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,601 @@
+// @use "../../responsive";
+
+// nav {
+//   height: 100px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+  
+
+//   a {
+//     transition: all 0.4s ease;
+
+//     @include responsive.sm {
+//       display: none;
+//     }
+
+//     &:hover {
+//       scale: 1.05;
+//     }
+//   }
+
+//   .left {
+//     flex: 3;
+//     display: flex;
+//     align-items: center;
+//     gap: 50px;
+    
+
+
+//     .logo {
+//       font-weight: bold;
+//       font-size: 20px;
+//       display: flex;
+//       align-items: center;
+//       gap: 10px;
+
+//       img {
+//         width: 28px;
+//       }
+
+//       span {
+//         @include responsive.md {
+//           display: none;
+//         }
+
+//         @include responsive.sm {
+//           display: initial;
+//         }
+//       }
+//     }
+//   }
+//   .right {
+//     flex: 2;
+//     display: flex;
+//     align-items: center;
+//     justify-content: flex-end;
+//     background-color: #fcf5f3;
+//     height: 100%;
+    
+
+//     @include responsive.md {
+//       background-color: transparent;
+//     }
+
+//     a {
+//       padding: 12px 24px;
+//       margin: 20px;
+//       height: 50px;
+//     }
+
+//     .user{
+//       display: flex;
+//       align-items: center;
+//       font-weight: bold;
+
+//       img{
+//         width: 40px;
+//         height: 40px;
+//         border-radius: 50%;
+//         object-fit: cover;
+//         margin-right: 20px;
+//       }
+
+//       span{
+//         @include responsive.sm{
+//           display: none;
+//         }
+//       }
+
+//       .profile{
+//         padding: 12px 24px;
+//         background-color: #fece51;
+//         cursor: pointer;
+//         border: none;
+//         position: relative;
+        
+//         .notification{
+//           position: absolute;
+//           top: -8px;
+//           right: -8px;
+//           background-color: red;
+//           color: white;
+//           border-radius: 50%;
+//           width: 26px;
+//           height: 26px;
+//           display: flex;
+//           align-items: center;
+//           justify-content: center;
+//         }
+
+//       }
+//     }
+
+//     .register {
+//       background-color: #fece51;
+//     }
+
+//     .menuIcon {
+//       display: none;
+//       z-index: 999;
+
+//       img {
+//         width: 36px;
+//         height: 36px;
+//         cursor: pointer;
+//       }
+
+//       @include responsive.sm {
+//         display: inline;
+//       }
+//     }
+
+//     .menu {
+//       position: absolute;
+//       top: 0;
+//       right: -50%;
+//       background-color: black;
+//       color: white;
+//       height: 100vh;
+//       width: 50%;
+//       transition: all 1s ease;
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       justify-content: center;
+//       font-size: 24px;
+
+//       &.active {
+//         right: 0;
+//       }
+
+//       @include responsive.sm {
+//         a {
+//           display: initial;
+//         }
+//       }
+//     }
+//   }
+// }
+@use "../../responsive";
+
+.navbar-container {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 40px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: background 0.4s ease, border-color 0.4s ease;
+
+  @include responsive.md {
+    padding: 0 20px;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--text-primary);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        
+        img {
+          filter: drop-shadow(0 0 8px var(--accent-primary));
+        }
+      }
+
+      img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.3));
+        transition: filter 0.3s ease;
+      }
+
+      span {
+        background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 15px;
+      position: relative;
+      padding: 6px 0;
+
+      @include responsive.md {
+        display: none;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-primary);
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: var(--text-primary);
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    // Desktop Controls
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      @include responsive.md {
+        display: none;
+      }
+
+      .feature-toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .toggle-label {
+          font-size: 13px;
+          font-weight: 600;
+          color: var(--text-secondary);
+        }
+      }
+    }
+
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover {
+        background: rgba(16, 185, 129, 0.1);
+        border-color: var(--accent-primary);
+        color: var(--accent-primary);
+        box-shadow: 0 0 12px var(--accent-glow);
+        transform: rotate(15deg);
+      }
+
+      svg {
+        transition: transform 0.5s ease;
+      }
+    }
+
+    // Switch Toggle Design
+    .switch-toggle {
+      width: 42px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      .switch-handle {
+        width: 14px;
+        height: 14px;
+        background: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 3px;
+        left: 4px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      &.active {
+        background: var(--accent-primary);
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 14px var(--accent-glow);
+
+        .switch-handle {
+          left: 22px;
+        }
+      }
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      @include responsive.md {
+        display: none;
+      }
+
+      img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--glass-border);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .username {
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-primary);
+      }
+
+      .profile {
+        padding: 10px 20px;
+        background: var(--accent-primary);
+        color: white;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 600;
+        position: relative;
+        box-shadow: 0 4px 12px var(--accent-glow);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: var(--accent-hover);
+          transform: translateY(-1px);
+          box-shadow: 0 6px 16px var(--accent-glow);
+        }
+
+        .notification {
+          position: absolute;
+          top: -6px;
+          right: -6px;
+          background-color: #ef4444;
+          color: white;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 11px;
+          font-weight: 700;
+          border: 2px solid var(--bg-surface);
+          box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+          animation: pulse 2s infinite;
+        }
+      }
+    }
+
+    .auth-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+
+      @include responsive.md {
+        display: none;
+      }
+
+      .signin {
+        color: var(--text-secondary);
+        font-weight: 600;
+        font-size: 14px;
+        padding: 10px 16px;
+        border-radius: var(--radius-sm);
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: var(--text-primary);
+          background: rgba(255, 255, 255, 0.05);
+        }
+      }
+
+      .register {
+        padding: 10px 20px;
+        background: var(--accent-primary);
+        color: white;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px var(--accent-glow);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: var(--accent-hover);
+          transform: translateY(-1px);
+          box-shadow: 0 6px 16px var(--accent-glow);
+        }
+      }
+    }
+
+    // Hamburger Mobile Menu Icon
+    .menuIcon {
+      display: none;
+      z-index: 1001;
+
+      @include responsive.md {
+        display: block;
+      }
+
+      .hamburger {
+        width: 30px;
+        height: 20px;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        span {
+          display: block;
+          height: 2px;
+          width: 100%;
+          background-color: var(--text-primary);
+          border-radius: 9px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        &.open {
+          span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+            background-color: var(--accent-primary);
+          }
+          span:nth-child(2) {
+            opacity: 0;
+          }
+          span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+            background-color: var(--accent-primary);
+          }
+        }
+      }
+    }
+
+    // Mobile Sliding Glass Drawer Menu
+    .menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: min(320px, 80vw);
+      height: 100vh;
+      background: rgba(16, 20, 29, 0.85);
+      border-left: 1px solid var(--glass-border);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 100px 30px 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 999;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+
+      body.light & {
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      &.active {
+        right: 0;
+      }
+
+      .menu-header {
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--glass-border);
+        padding-bottom: 10px;
+        
+        .menu-title {
+          font-size: 13px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          color: var(--text-muted);
+        }
+      }
+
+      .menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        flex: 1;
+
+        a {
+          font-size: 20px;
+          font-weight: 600;
+          color: var(--text-primary);
+          transition: all 0.3s ease;
+
+          &:hover {
+            color: var(--accent-primary);
+            padding-left: 8px;
+          }
+
+          &.register-mobile {
+            margin-top: 10px;
+            padding: 12px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-size: 16px;
+            box-shadow: 0 4px 12px var(--accent-glow);
+
+            &:hover {
+              background: var(--accent-hover);
+              padding-left: 0;
+            }
+          }
+        }
+      }
+
+      .mobile-controls {
+        border-top: 1px solid var(--glass-border);
+        padding-top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .control-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-weight: 600;
+          color: var(--text-secondary);
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Global Glowing styles triggered by Feature Toggle
+body.feature-active {
+  .navbar-container {
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+
+  .left .logo img {
+    filter: drop-shadow(0 0 8px var(--accent-primary)) drop-shadow(0 0 16px var(--accent-primary));
+  }
+}
+
+// Keyframes
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}

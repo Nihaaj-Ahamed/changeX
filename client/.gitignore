@@ -1,0 +1,62 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# Dependencies (Folder specific)
+api/node_modules/
+client/node_modules/
+socket/node_modules/
+node_modules/
+
+# Environment variables & secrets
+*.env
+*.env.local
+.env.*
+
+# Build & Dist outputs
+client/dist/
+client/build/
+dist/
+build/
+
+# Logs & System garbage
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+# Sub-folders-kulla irukku node_modules-a ignore panna
+api/node_modules/
+client/node_modules/
+socket/node_modules/
+
+# Standard format (Enga node_modules irundhaalum ignore aagum)
+**/node_modules/
+
+# Environment secret files-a ignore panna
+**/.env
+**/.env.*
+
+# Client build folder-a ignore panna
+client/dist/
+client/build/

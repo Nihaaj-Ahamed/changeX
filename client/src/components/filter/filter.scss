@@ -1,0 +1,185 @@
+// .filter {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
+
+//   h1 {
+//     font-weight: 300;
+//     font-size: 24px;
+//   }
+
+//   .item {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 2px;
+
+//     label {
+//       font-size: 10px;
+//     }
+
+//     input,
+//     select {
+//       width: 100px;
+//       padding: 10px;
+//       border: 1px solid #e0e0e0;
+//       border-radius: 5px;
+//       font-size: 14px;
+//     }
+//   }
+
+//   .top {
+//     input {
+//       width: 100%;
+//     }
+//   }
+
+//   .bottom {
+//     display: flex;
+//     justify-content: space-between;
+//     flex-wrap: wrap;
+//     gap: 20px;
+
+//     button {
+//       width: 100px;
+//       padding: 10px;
+//       border: none;
+//       cursor: pointer;
+//       background-color: #fece51;
+
+//       img {
+//         width: 24px;
+//         height: 24px;
+//       }
+//     }
+//   }
+// }
+@use "../../responsive";
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; // Compact gap
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  padding: 12px 16px; // Reduced padding
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+
+  h1 {
+    font-weight: 500;
+    font-size: 16px; // Smaller heading
+    color: var(--text-primary);
+
+    b {
+      color: var(--accent-mint);
+      font-weight: 700;
+    }
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 10px; // Compact label
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+    }
+
+    input,
+    select {
+      width: 105px; // Slightly tighter width
+      padding: 6px 10px; // Compact input padding
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      outline: none;
+      transition: all var(--transition-fast);
+
+      &::placeholder {
+        color: var(--text-muted);
+      }
+
+      &:focus {
+        border-color: var(--accent-primary);
+        background: rgba(16, 185, 129, 0.05);
+        box-shadow: 0 0 8px var(--accent-glow);
+      }
+
+      @include responsive.sm {
+        width: 100%;
+        padding: 8px 12px;
+      }
+    }
+
+    select {
+      cursor: pointer;
+
+      option {
+        background-color: var(--bg-surface);
+        color: var(--text-primary);
+        padding: 8px;
+      }
+    }
+  }
+
+  .top {
+    width: 100%;
+
+    .item {
+      input {
+        width: 100%;
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+
+    @include responsive.sm {
+      gap: 10px;
+    }
+
+    button {
+      width: 90px;
+      height: 34px; // Compact button height
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      background-color: var(--accent-primary);
+      box-shadow: var(--shadow-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+
+      &:hover {
+        background-color: var(--accent-mint);
+        box-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
+        transform: translateY(-1px);
+      }
+
+      @include responsive.sm {
+        width: 100%;
+        height: 40px;
+      }
+
+      img {
+        width: 18px;
+        height: 18px;
+        filter: brightness(0); // Dark icon
+      }
+    }
+  }
+}

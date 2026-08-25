@@ -1,0 +1,77 @@
+// @use "../../responsive";
+
+// .listPage {
+//   display: flex;
+//   height: 100%;
+
+//   .listContainer {
+//     flex: 3;
+//     height: 100%;
+
+//     .wrapper{
+//       height: 100%;
+//       padding-right: 50px;
+//       display: flex;
+//       flex-direction: column;
+//       gap: 50px;
+//       overflow-y: scroll;
+//       padding-bottom: 50px;
+//     }
+//   }
+//   .mapContainer {
+//     flex: 2;
+//     height: 100%;
+//     background-color: #fcf5f3;
+
+//     @include responsive.md{
+//       display: none;
+//     }
+//   }
+// }
+@use "../../responsive";
+
+.listPage {
+  display: flex;
+  height: 100%;
+  gap: 24px;
+  overflow: hidden;
+
+  .listContainer {
+    flex: 3;
+    height: 100%;
+
+    .wrapper {
+      height: 100%;
+      padding-right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      overflow-y: auto;
+      padding-bottom: 40px;
+
+      @include responsive.lg {
+        padding-right: 16px;
+      }
+
+      @include responsive.md {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .mapContainer {
+    flex: 2;
+    height: 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+
+    @include responsive.md {
+      display: none;
+    }
+  }
+}

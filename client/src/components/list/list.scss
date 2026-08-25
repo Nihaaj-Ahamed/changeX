@@ -1,0 +1,17 @@
+// .list{
+//   display: flex;
+//   flex-direction: column;
+//   gap: 50px;
+// }
+@use "../../responsive";
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+
+  @include responsive.sm {
+    gap: 16px;
+  }
+}

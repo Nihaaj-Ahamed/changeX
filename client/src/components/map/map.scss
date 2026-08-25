@@ -1,0 +1,36 @@
+
+// .map{
+//   width: 100%;
+//   height: 100%;
+//   border-radius: 20px;
+// }
+.map {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  // Leaflet / Mapbox dark mode override (map dark theme-ku seamless-a blend aaga)
+  .leaflet-container {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-surface) !important;
+    border-radius: var(--radius-lg);
+  }
+
+  // Custom Map Popup Styling Overrides
+  .leaflet-popup-content-wrapper {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .leaflet-popup-tip {
+    background: var(--bg-surface) !important;
+    border: 1px solid var(--glass-border);
+  }
+}

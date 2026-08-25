@@ -1,0 +1,288 @@
+// @use "../../responsive.scss";
+
+// .slider {
+//   width: 100%;
+//   height: 350px;
+//   display: flex;
+//   gap: 20px;
+
+//   @include responsive.sm {
+//     height: 280px;
+//   }
+
+//   .fullSlider {
+//     position: absolute;
+//     width: 100vw;
+//     height: 100vh;
+//     top: 0;
+//     left: 0;
+//     background-color: black;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     z-index: 9999;
+
+//     .arrow {
+//       flex: 1;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+
+//       img {
+//         width: 50px;
+
+//         @include responsive.md {
+//           width: 30px;
+//         }
+
+//         @include responsive.sm {
+//           width: 20px;
+//         }
+
+//         &.right {
+//           transform: rotate(180deg);
+//         }
+//       }
+//     }
+//     .imgContainer {
+//       flex: 10;
+
+//       img {
+//         width: 100%;
+//         height: 100%;
+//         object-fit: cover;
+//       }
+//     }
+
+//     .close {
+//       position: absolute;
+//       top: 0;
+//       right: 0;
+//       color: white;
+//       font-size: 36px;
+//       font-weight: bold;
+//       padding: 50px;
+//       cursor: pointer;
+//     }
+//   }
+
+//   img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     border-radius: 10px;
+//     cursor: pointer;
+//   }
+
+//   .bigImage {
+//     flex: 3;
+
+//     @include responsive.sm {
+//       flex: 2;
+//     }
+//   }
+//   .smallImages {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     gap: 20px;
+
+//     @include responsive.sm {
+//       flex: 1;
+//     }
+
+//     img {
+//       height: 100px;
+
+//       @include responsive.sm {
+//         height: 80px;
+//       }
+//     }
+//   }
+// }
+@use "../../responsive.scss";
+
+.slider {
+  width: 100%;
+  height: 380px;
+  display: flex;
+  gap: 16px;
+
+  @include responsive.sm {
+    height: 300px;
+  }
+
+  // Modern Glass Fullscreen Lightbox Modal
+  .fullSlider {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(9, 10, 15, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    padding: 24px;
+
+    .arrow {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+
+      img {
+        width: 48px;
+        height: 48px;
+        padding: 12px;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-full);
+        backdrop-filter: blur(12px);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+
+        &:hover {
+          border-color: var(--accent-primary);
+          box-shadow: 0 0 16px var(--accent-glow);
+          transform: scale(1.1);
+        }
+
+        @include responsive.md {
+          width: 40px;
+          height: 40px;
+          padding: 10px;
+        }
+
+        @include responsive.sm {
+          width: 36px;
+          height: 36px;
+          padding: 8px;
+        }
+
+        &.right {
+          transform: rotate(180deg);
+
+          &:hover {
+            transform: rotate(180deg) scale(1.1);
+          }
+        }
+      }
+    }
+
+    .imgContainer {
+      flex: 10;
+      height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      color: var(--text-primary);
+      font-size: 28px;
+      font-weight: 600;
+      width: 44px;
+      height: 44px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      z-index: 20;
+
+      &:hover {
+        border-color: var(--accent-primary);
+        color: var(--accent-mint);
+        box-shadow: 0 0 16px var(--accent-glow);
+        transform: rotate(90deg);
+      }
+
+      @include responsive.sm {
+        top: 16px;
+        right: 16px;
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+      }
+    }
+  }
+
+  // Base Image Styling
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    transition: all var(--transition-smooth);
+
+    &:hover {
+      border-color: var(--accent-primary);
+      box-shadow: var(--shadow-glow);
+    }
+  }
+
+  .bigImage {
+    flex: 3;
+    overflow: hidden;
+
+    img {
+      box-shadow: var(--shadow-sm);
+      
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+
+    @include responsive.sm {
+      flex: 2;
+    }
+  }
+
+  .smallImages {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+
+    @include responsive.sm {
+      flex: 1;
+    }
+
+    img {
+      height: 110px;
+      opacity: 0.8;
+
+      &:hover {
+        opacity: 1;
+        transform: translateX(-4px);
+      }
+
+      @include responsive.sm {
+        height: 85px;
+      }
+    }
+  }
+}
