@@ -11,7 +11,7 @@ import Chat from "../../components/chat/Chat"; // Ungaloda Chat component path
 function SinglePage() {
   const loaderData = useLoaderData();
   const post = loaderData?.post || loaderData;
-  const [saved, setSaved] = useState(post.isSaved);
+  const [saved, setSaved] = useState(post?.isSaved || false);
   const { currentUser } = useContext(AuthContext);
   const [chat, setChat] = useState(null); // Chat state
   const navigate = useNavigate(); // Navigation hook

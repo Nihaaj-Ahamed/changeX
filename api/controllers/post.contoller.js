@@ -83,27 +83,27 @@ export const getPost = async (req, res) => {
         },
       },
     });
-    let userId;
-    const token =req.cookies?.token;
-    if (!token) {
-      userId = null;
-    }else{
-         jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
-        if (err) {
-          userId = null;
-        }else{
-          userId = payload.id;
+    let userId = null;
+    const token = req.cookies?.token;
+    if (token) {
+      try {
+        const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        userId = payload.id;
+      } catch (err) {
+        userId = null;
+      }
+    }
+    let saved = null;
+    if (userId) {
+      saved = await prisma.savedPost.findUnique({
+        where: {
+          userId_postId: {
+            postId: id,
+            userId: userId,
+          }
         }
       });
     }
-    const saved = await prisma.savedPost.findUnique({
-      where: {
-        userId_postId: {
-          postId: id,
-          userId: userId,
-        }
-      }
-    });
 
     res.status(200).json({ ...post, isSaved: saved ? true : false });
   } catch (err) {
