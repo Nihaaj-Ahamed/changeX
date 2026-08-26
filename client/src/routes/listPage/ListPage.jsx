@@ -2,7 +2,7 @@ import React from "react";
 import "./listPage.scss";
 import Filter from "../../components/filter/filter";
 import Card from "../../components/card/Card";
-import Map from "../../components/map/Map";
+import Map from "../../components/map/map";
 import { useLoaderData } from "react-router-dom";
 
 function ListPage() {
