@@ -1,6 +1,6 @@
 import React from "react";
 import "./listPage.scss";
-import Filter from "../../components/filter/Filter";
+import Filter from "../../components/filter/filter";
 import Card from "../../components/card/Card";
 import Map from "../../components/map/Map";
 import { useLoaderData } from "react-router-dom";
