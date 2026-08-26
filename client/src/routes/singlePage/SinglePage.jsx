@@ -1,6 +1,6 @@
 import "./singlePage.scss";
 import Slider from "../../components/slider/Slider";
-import Map from "../../components/map/Map";
+import Map from "../../components/map/map";
 import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import dompurify from "dompurify";
 import { useContext, useState } from "react";
