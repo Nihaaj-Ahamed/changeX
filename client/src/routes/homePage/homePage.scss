@@ -94,10 +94,14 @@
 
 .homePage {
   display: flex;
-  height: 100%;
   min-height: calc(100vh - 80px);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+
+  @include responsive.md {
+    height: auto;
+    overflow-y: visible;
+  }
 
   .textContainer {
     flex: 3;
@@ -117,11 +121,14 @@
 
       @include responsive.md {
         padding: 40px 0;
+        height: auto;
       }
 
       @include responsive.sm {
         justify-content: flex-start;
         gap: 28px;
+        height: auto;
+        padding-bottom: 60px;
       }
 
       .title {
@@ -179,7 +186,9 @@
           gap: 16px;
 
           @include responsive.sm {
-            display: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
           }
 
           > div,

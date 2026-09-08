@@ -35,13 +35,21 @@ export const listPageLoader = async ({ request, params }) => {
 }
 
 export const profilePageLoader = async () => {
-  const postPromise = await apiRequest("/users/profilePosts");
-  const chatPromise = await apiRequest("/chats");
- 
-  return {
-    postResponse: postPromise,
-    chatResponse: chatPromise,
-  };
+  try {
+    const postPromise = await apiRequest("/users/profilePosts");
+    const chatPromise = await apiRequest("/chats");
+
+    return {
+      postResponse: postPromise,
+      chatResponse: chatPromise,
+    };
+  } catch (err) {
+    console.error("Failed to load profile data:", err);
+    return {
+      postResponse: { data: { userPosts: [], savedPosts: [] } },
+      chatResponse: { data: [] },
+    };
+  }
 };
 // export const profilePageLoader = async () => {
 //   const postPromise = apiRequest("/users/profilePosts");

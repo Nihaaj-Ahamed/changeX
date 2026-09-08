@@ -18,8 +18,13 @@ function Chat({ chats: chatsProp, activeChat, closeChat }) {
 
   const messagesEndRef = useRef();
   const decrease = useNotificationStore((state) => state.decrease);
-  const increase = useNotificationStore((state) => state.increase);
+  const setActiveChatId = useNotificationStore((state) => state.setActiveChatId);
   const isOverlay = !!activeChat;
+
+  useEffect(() => {
+    setActiveChatId(chat?.id || null);
+    return () => setActiveChatId(null);
+  }, [chat?.id, setActiveChatId]);
 
   useEffect(() => {
     if (chatsProp) setChats(chatsProp);
@@ -145,13 +150,7 @@ function Chat({ chats: chatsProp, activeChat, closeChat }) {
         });
         apiRequest.put("/chats/read/" + openChat.id).catch(() => {});
       } else {
-        setChats((prev) => {
-          const chatItem = prev.find((c) => c.id === data?.chatId);
-          if (!chatItem || chatItem.seenBy?.includes(currentUser.id)) {
-            increase();
-          }
-          return prev;
-        });
+        // Chat list update handled below, notification count handled globally by SocketContext
       }
 
       setChats((prev) => {
@@ -186,7 +185,7 @@ function Chat({ chats: chatsProp, activeChat, closeChat }) {
     return () => {
       socket.off("getMessage", handleGetMessage);
     };
-  }, [socket, currentUser?.id, increase]);
+  }, [socket, currentUser?.id]);
 
   const handleClose = () => {
     setChat(null);

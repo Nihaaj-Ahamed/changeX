@@ -82,6 +82,12 @@
   gap: 24px;
   overflow: hidden;
 
+  @include responsive.md {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+  }
+
   .formContainer {
     flex: 3;
     height: 100%;
@@ -257,20 +263,63 @@
     overflow-y: auto;
 
     @include responsive.md {
-      display: none;
+      height: auto;
+      min-height: 200px;
+      width: 100%;
+      margin-bottom: 40px;
     }
 
-    img {
+    .imagesList {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 14px;
+    }
+
+    .imageWrapper {
+      position: relative;
+      width: 100%;
+      height: 130px;
       border-radius: var(--radius-md);
+      overflow: hidden;
       border: 1px solid var(--glass-border);
       transition: all var(--transition-fast);
 
       &:hover {
         border-color: var(--accent-primary);
-        box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        box-shadow: 0 0 14px var(--accent-glow);
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .deleteImgBtn {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(239, 68, 68, 0.9);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        transition: all 0.2s ease;
+        z-index: 10;
+
+        &:hover {
+          background: #dc2626;
+          transform: scale(1.15);
+        }
       }
     }
   }

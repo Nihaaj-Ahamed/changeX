@@ -7,7 +7,7 @@ const properties = ["Apple", "Samsung", "GooglePixel", "Xiaomi", "Other"];
 
 function SearchBar() {
   const [query, setQuery] = useState({
-    type: "sell",
+    type: "",
     city: "",
     property: "",
     maxPrice: "",

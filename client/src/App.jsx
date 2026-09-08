@@ -8,6 +8,7 @@ import Register from "./routes/register/Register";
 import Login from "./routes/login/Login";
 import ProfileUpdate from "./routes/profileUpdatePage/profileUpdatePage";
 import NewPostPage from "./routes/newPostPage/newPostPage";
+import UpdatePostPage from "./routes/updatePostPage/UpdatePostPage";
 import AboutPage from "./routes/aboutPage/aboutPage";
 import SupportPage from "./routes/supportPage/supportPage";
 import {
@@ -21,6 +22,11 @@ function App() {
     {
       path: "/",
       element: <Layout />,
+      hydrateFallbackElement: (
+        <div style={{ padding: "40px", textAlign: "center", color: "var(--text-muted)" }}>
+          Loading...
+        </div>
+      ),
       children: [
         {
           index: true,
@@ -57,6 +63,11 @@ function App() {
     {
       path: "/",
       element: <RequireAuth />,
+      hydrateFallbackElement: (
+        <div style={{ padding: "40px", textAlign: "center", color: "var(--text-muted)" }}>
+          Loading...
+        </div>
+      ),
       children: [
         {
           path: "/profile",
@@ -70,6 +81,11 @@ function App() {
         {
           path: "/add",
           element: <NewPostPage />,
+        },
+        {
+          path: "/update-post/:id",
+          element: <UpdatePostPage />,
+          loader: singlePageLoader,
         },
       ],
     },

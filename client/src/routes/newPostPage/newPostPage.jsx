@@ -13,6 +13,18 @@ function NewPostPage() {
 
   const navigate = useNavigate();
 
+  const handleRemoveImage = async (indexToRemove) => {
+    const targetUrl = images[indexToRemove];
+    setImages((prev) => prev.filter((_, idx) => idx !== indexToRemove));
+    if (targetUrl) {
+      try {
+        await apiRequest.post("/posts/delete-image", { url: targetUrl });
+      } catch (err) {
+        console.error("Failed to delete image from storage:", err);
+      }
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -38,16 +50,16 @@ function NewPostPage() {
           condition: inputs.condition,
           warranty: inputs.warranty,
           color: inputs.color,
-          battery: parseInt(inputs.battery),
-          display: parseInt(inputs.display),
-          camera: parseInt(inputs.camara),
+          battery: inputs.battery ? parseInt(inputs.battery) : null,
+          display: inputs.display ? parseInt(inputs.display) : null,
+          camera: (inputs.Camera || inputs.camara) ? parseInt(inputs.Camera || inputs.camara) : null,
           Accessories: inputs.Accessories,
         },
       });
       navigate("/" + res.data.id);
     } catch (err) {
       console.log(err);
-      setError(error);
+      setError("Something went wrong!");
     }
   };
 
@@ -153,9 +165,21 @@ function NewPostPage() {
   </div>
 </div>
       <div className="sideContainer">
-        {images.map((image, index) => (
-          <img src={image} key={index} alt="" />
-        ))}
+        <div className="imagesList">
+          {images.map((image, index) => (
+            <div className="imageWrapper" key={index}>
+              <img src={image} alt={`Upload ${index + 1}`} />
+              <button
+                type="button"
+                className="deleteImgBtn"
+                onClick={() => handleRemoveImage(index)}
+                title="Delete image"
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
         <UploadWidget
           uwConfig={{
             multiple: true,

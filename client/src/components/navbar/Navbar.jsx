@@ -126,13 +126,43 @@ function Navbar() {
             <span></span>
             <span></span>
           </div>
+          {number > 0 && !open && (
+            <span className="mobile-menu-badge">{number}</span>
+          )}
         </div>
 
         {/* Mobile Sliding Glass Drawer */}
         <div className={`menu ${open ? "active" : ""}`}>
           <div className="menu-header">
-            <span className="menu-title">Navigation</span>
+            <span className="menu-title">Menu</span>
           </div>
+
+          {currentUser && (
+            <div className="mobile-profile-card">
+              <div className="user-details">
+                <img
+                  src={currentUser.avatar || "/noAvathar.png"}
+                  alt={currentUser.username || "User avatar"}
+                  className="mobile-avatar"
+                />
+                <div className="text-info">
+                  <span className="user-name">{currentUser.username}</span>
+                  {currentUser.email && (
+                    <span className="user-email">{currentUser.email}</span>
+                  )}
+                </div>
+              </div>
+              <Link
+                to="/profile"
+                className="mobile-profile-btn"
+                onClick={() => setOpen(false)}
+              >
+                <span>Profile</span>
+                {number > 0 && <span className="mobile-badge">{number}</span>}
+              </Link>
+            </div>
+          )}
+
           <div className="menu-links">
             <Link to="/" onClick={() => setOpen(false)}>Home</Link>
             <Link to="/about" onClick={() => setOpen(false)}>About</Link>
@@ -147,7 +177,16 @@ function Navbar() {
               }}
             >
               Products
-            </Link>            {!currentUser && (
+            </Link>
+            {currentUser ? (
+              <Link
+                to="/add"
+                onClick={() => setOpen(false)}
+                className="add-post-mobile"
+              >
+                + Add Post
+              </Link>
+            ) : (
               <>
                 <Link to="/login" onClick={() => setOpen(false)}>Sign in</Link>
                 <Link to="/register" onClick={() => setOpen(false)} className="register-mobile">Sign up</Link>

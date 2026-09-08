@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { AuthContext } from "./authContext";
+import { useNotificationStore } from "../lib/notificationStore";
 
 export const SocketContext = createContext();
 
@@ -33,8 +34,22 @@ export const SocketContextProvider = ({ children }) => {
       registerUser();
     }
 
+    const handleIncomingMessage = (data) => {
+      const activeChatId = useNotificationStore.getState().activeChatId;
+      // If user currently has this exact conversation open, don't increment unread count
+      if (activeChatId && activeChatId === data?.chatId) {
+        return;
+      }
+      // On ANY other page or section, immediately increment badge and sync with DB count
+      useNotificationStore.getState().increase();
+      useNotificationStore.getState().fetch();
+    };
+
+    socket.on("getMessage", handleIncomingMessage);
+
     return () => {
       socket.off("connect", registerUser);
+      socket.off("getMessage", handleIncomingMessage);
     };
   }, [currentUser?.id, socket]);
 

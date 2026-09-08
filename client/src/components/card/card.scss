@@ -234,6 +234,28 @@
               filter: opacity(1) drop-shadow(0 0 4px var(--accent-mint));
             }
           }
+
+          &.editIcon {
+            color: var(--accent-primary);
+
+            &:hover {
+              background-color: rgba(16, 185, 129, 0.2);
+              border-color: var(--accent-primary);
+              box-shadow: 0 0 10px var(--accent-glow);
+              color: var(--accent-mint);
+            }
+          }
+
+          &.deleteIcon {
+            color: #ef4444;
+
+            &:hover {
+              background-color: rgba(239, 68, 68, 0.2);
+              border-color: #ef4444;
+              box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+              color: #dc2626;
+            }
+          }
         }
       }
     }

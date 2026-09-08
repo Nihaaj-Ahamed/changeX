@@ -4,27 +4,44 @@ import List from "../../components/list/List";
 import apiRequest from "../../lib/apiRequest";
 import "./profilePage.scss";
 import { AuthContext } from "../../context/authContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 function ProfilePage() {
-  const data= useLoaderData();
-    const posts = data?.postResponse?.data || [];
-    const chats = data?.chatResponse?.data || [];
+  const data = useLoaderData();
+  const posts = data?.postResponse?.data || {};
+  const chats = data?.chatResponse?.data || [];
 
-  const {currentUser, updateUser}=useContext(AuthContext);
-  const navigate= useNavigate();
+  const [userPosts, setUserPosts] = useState(posts.userPosts || []);
+  const { currentUser, updateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-
-  const handleLogout=async()=>{
-    try{
+  const handleLogout = async () => {
+    try {
       await apiRequest.post("/auth/logout");
       updateUser(null);
       navigate("/login");
-
-    }catch(err){
-        console.log(err);  
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
+
+  const handleDeletePost = async (postId) => {
+    if (
+      !window.confirm(
+        "Are you sure you want to delete this listing? All images will also be removed from storage."
+      )
+    ) {
+      return;
+    }
+    try {
+      await apiRequest.delete("/posts/" + postId);
+      setUserPosts((prev) => prev.filter((p) => p.id !== postId));
+    } catch (err) {
+      console.error(err);
+      alert(err?.response?.data?.message || "Failed to delete post");
+    }
+  };
+
   return (
     <div className="profilePage">
       <div className="details">
@@ -32,7 +49,7 @@ function ProfilePage() {
           <div className="title">
             <h1>User Information</h1>
             <Link to="/profile/update">
-            <button>Update Profile</button>
+              <button>Update Profile</button>
             </Link>
           </div>
           <div className="info">
@@ -57,7 +74,11 @@ function ProfilePage() {
               <button>Create New Post</button>
             </Link>
           </div>
-          <List posts={posts.userPosts} />
+          <List
+            posts={userPosts}
+            isMyPost={true}
+            onDelete={handleDeletePost}
+          />
           <div className="title">
             <h1>Saved List</h1>
           </div>
